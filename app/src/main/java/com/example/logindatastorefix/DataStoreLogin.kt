@@ -41,6 +41,10 @@ class DataStoreLogin(private val context: Context) {
         .map {
             it[EMAIL] ?: ""
         }
+    val userPw: Flow<String> = context.dataStore.data
+        .map {
+            it[PW] ?: ""
+        }
 
 
 

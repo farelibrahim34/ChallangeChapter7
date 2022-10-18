@@ -1,6 +1,7 @@
 package com.example.logindatastorefix
 
 import android.content.Context
+import android.net.Uri
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -16,6 +17,7 @@ class DataStoreProfile(private val context: Context) {
     val NAMA = stringPreferencesKey("nama")
     val TGL = stringPreferencesKey("tgl")
     val ALAMAT = stringPreferencesKey("alamat")
+
 
 
     suspend fun saveDataProfile(nama : String, tgl : String, alamat: String){

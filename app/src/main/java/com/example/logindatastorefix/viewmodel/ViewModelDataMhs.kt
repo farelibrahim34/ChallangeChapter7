@@ -1,10 +1,9 @@
 package com.example.logindatastorefix.viewmodel
 
+import androidx.datastore.preferences.protobuf.Api
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.logindatastorefix.model.DataMahasiswa
-import com.example.logindatastorefix.model.ResponseDataMhs
-import com.example.logindatastorefix.model.ResponseDataMhsItem
+import com.example.logindatastorefix.model.*
 import com.example.logindatastorefix.network.APIMahasiswa
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,6 +15,9 @@ class ViewModelDataMhs : ViewModel() {
     lateinit var postLdDataMhs : MutableLiveData<ResponseDataMhs?>
     lateinit var editLdDataMhs : MutableLiveData<ResponseDataMhsItem?>
     lateinit var deleteLdDataMhs : MutableLiveData<ResponseDataMhsItem?>
+    lateinit var liveDataBookmark : MutableLiveData<List<ResponseBookmarkItem>>
+    lateinit var postBookmark : MutableLiveData<ResponseBookmark>
+    lateinit var ldBookmarkById : MutableLiveData<ResponseBookmarkItem>
 
     init {
         liveDataMhs = MutableLiveData()
@@ -23,6 +25,9 @@ class ViewModelDataMhs : ViewModel() {
         postLdDataMhs = MutableLiveData()
         editLdDataMhs = MutableLiveData()
         deleteLdDataMhs = MutableLiveData()
+        liveDataBookmark = MutableLiveData()
+        postBookmark = MutableLiveData()
+        ldBookmarkById = MutableLiveData()
 
     }
     //    null
@@ -41,6 +46,17 @@ class ViewModelDataMhs : ViewModel() {
     fun getLdDelDataMhs(): MutableLiveData<ResponseDataMhsItem?> {
         return deleteLdDataMhs
     }
+    fun getBookmarkDataMhs(): MutableLiveData<List<ResponseBookmarkItem>> {
+        return liveDataBookmark
+    }
+    fun postDataBookmark(): MutableLiveData<ResponseBookmark>{
+        return postBookmark
+    }
+    fun getBookmarkById(id : Int): MutableLiveData<ResponseBookmarkItem>{
+        return ldBookmarkById
+    }
+
+
 
     fun callDeleteData(id : Int){
         APIMahasiswa.instance.deleteDataMhs(id)
@@ -105,6 +121,26 @@ class ViewModelDataMhs : ViewModel() {
 
             })
     }
+    fun callAddBookmark(nama : String, nim : String, jk : String, alamat : String, foto : String){
+        APIMahasiswa.instance.addBookmarkDataMhs(DataMahasiswa(nama,nim,jk,alamat,foto))
+            .enqueue(object : Callback<ResponseBookmark>{
+                override fun onResponse(
+                    call: Call<ResponseBookmark>,
+                    response: Response<ResponseBookmark>
+                ) {
+                    if (response.isSuccessful){
+                        postBookmark.postValue(response.body())
+                    }else{
+                        postBookmark.postValue(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBookmark>, t: Throwable) {
+                    postBookmark.postValue(null)
+                }
+
+            })
+    }
 
 
     fun callGetDataMhs(id : Int){
@@ -127,6 +163,26 @@ class ViewModelDataMhs : ViewModel() {
 
             })
     }
+    fun callGetBookmark(id: Int){
+        APIMahasiswa.instance.getBookmarkByid(id)
+            .enqueue(object : Callback<ResponseBookmarkItem>{
+                override fun onResponse(
+                    call: Call<ResponseBookmarkItem>,
+                    response: Response<ResponseBookmarkItem>
+                ) {
+                    if (response.isSuccessful){
+                        ldBookmarkById.postValue(response.body())
+                    }else{
+                        ldBookmarkById.postValue(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBookmarkItem>, t: Throwable) {
+                    ldBookmarkById.postValue(null)
+                }
+
+            })
+    }
 
     fun callApiDataMhs(){
         APIMahasiswa.instance.getAllDataMhs()
@@ -144,6 +200,26 @@ class ViewModelDataMhs : ViewModel() {
 
                 override fun onFailure(call: Call<List<ResponseDataMhsItem>>, t: Throwable) {
                     liveDataMhs.postValue(null)
+                }
+
+            })
+    }
+    fun callBookmarkDataMhs(){
+        APIMahasiswa.instance.getBookmarkMhs()
+            .enqueue(object : Callback<List<ResponseBookmarkItem>>{
+                override fun onResponse(
+                    call: Call<List<ResponseBookmarkItem>>,
+                    response: Response<List<ResponseBookmarkItem>>
+                ) {
+                    if (response.isSuccessful){
+                        liveDataBookmark.postValue(response.body())
+                    }else{
+                        liveDataBookmark.postValue(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<ResponseBookmarkItem>>, t: Throwable) {
+                    liveDataBookmark.postValue(null)
                 }
 
             })

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.logindatastorefix.view.MhsAdapter
 import com.example.logindatastorefix.databinding.ActivityMainBinding
 import com.example.logindatastorefix.isi.AddActivity
+import com.example.logindatastorefix.isi.FavoriteActivity
 import com.example.logindatastorefix.isi.ProfileActivity
 import com.example.logindatastorefix.view.LoginActivity
 import com.example.logindatastorefix.viewmodel.ViewModelDataMhs
@@ -40,8 +41,12 @@ class MainActivity : AppCompatActivity() {
         binding.btnAdd.setOnClickListener {
             startActivity(Intent(this,AddActivity::class.java))
         }
+        binding.btnKeBookmark.setOnClickListener {
+            startActivity(Intent(this,FavoriteActivity::class.java))
+        }
 
         dataMhs()
+
 
 
 
@@ -62,25 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun dataMhs(){
-//        APIMahasiswa.instance.getAllDataMhs()
-//            .enqueue(object : Callback<List<ResponseDataMhsItem>>{
-//                override fun onResponse(
-//                    call: Call<List<ResponseDataMhsItem>>,
-//                    response: Response<List<ResponseDataMhsItem>>
-//                ) {
-//                    if (response.isSuccessful){
-//                        binding.rvList.layoutManager = LinearLayoutManager(this@HomeActivity,LinearLayoutManager.VERTICAL,false)
-//                        binding.rvList.adapter = MhsAdapter(response.body()!!)
-//                    }else{
-//                        Toast.makeText(this@HomeActivity, "Load Data Failed", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<List<ResponseDataMhsItem>>, t: Throwable) {
-//                    Toast.makeText(this@HomeActivity, "Load Data Failed", Toast.LENGTH_SHORT).show()
-//                }
-//
-//            })
+
         viewModel = ViewModelProvider(this).get(ViewModelDataMhs::class.java)
         viewModel.getDataMhs().observe(this,{
             if (it != null){
@@ -94,9 +81,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 adapter.notifyDataSetChanged()
             }
-
-
-
         })
         viewModel.callApiDataMhs()
     }

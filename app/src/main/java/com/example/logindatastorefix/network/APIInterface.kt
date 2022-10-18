@@ -1,8 +1,6 @@
 package com.example.logindatastorefix.network
 
-import com.example.logindatastorefix.model.DataMahasiswa
-import com.example.logindatastorefix.model.ResponseDataMhs
-import com.example.logindatastorefix.model.ResponseDataMhsItem
+import com.example.logindatastorefix.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,4 +19,13 @@ interface APIInterface {
 
     @DELETE("datamhs/{id}")
     fun deleteDataMhs(@Path("id")id : Int): Call<ResponseDataMhsItem>
+
+    @POST("bookmark")
+    fun addBookmarkDataMhs(@Body request : DataMahasiswa): Call<ResponseBookmark>
+
+    @GET("bookmark")
+    fun getBookmarkMhs() : Call<List<ResponseBookmarkItem>>
+
+    @GET("bookmark")
+    fun getBookmarkByid(@Path("id") id : Int): Call<ResponseBookmarkItem>
 }

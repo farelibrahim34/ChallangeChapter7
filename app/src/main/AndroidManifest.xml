@@ -20,6 +20,12 @@
         android:theme="@style/Theme.LoginDataStoreFix"
         tools:targetApi="31">
         <activity
+            android:name=".isi.BookmarkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".isi.FavoriteActivity"
+            android:exported="false" />
+        <activity
             android:name=".isi.AddActivity"
             android:exported="false" />
         <activity

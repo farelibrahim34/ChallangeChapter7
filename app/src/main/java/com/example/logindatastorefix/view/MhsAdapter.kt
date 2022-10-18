@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.logindatastorefix.databinding.ItemBinding
+import com.example.logindatastorefix.isi.BookmarkActivity
 import com.example.logindatastorefix.isi.DetailActivity
 import com.example.logindatastorefix.isi.EditDataActivity
 import com.example.logindatastorefix.model.ResponseDataMhsItem
@@ -40,6 +41,11 @@ class MhsAdapter(var listData : List<ResponseDataMhsItem>): RecyclerView.Adapter
             var edit = Intent(it.context, EditDataActivity::class.java)
             edit.putExtra("id",listData[position].id)
             it.context.startActivity(edit)
+        }
+        holder.binding.imgBm.setOnClickListener {
+            var bm = Intent(it.context, BookmarkActivity::class.java)
+            bm.putExtra("id",listData[position].id)
+            it.context.startActivity(bm)
         }
 
         holder.binding.imgDelete.setOnClickListener {

@@ -50,6 +50,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
 
+
         binding.btnUpdateProfile.setOnClickListener {
             val updateNama = binding.inputNama.text.toString()
             val updateTgl = binding.inputTgl.text.toString()
@@ -142,7 +143,6 @@ class ProfileActivity : AppCompatActivity() {
     private fun handleCameraImage(intent: Intent?) {
         val bitmap = intent?.extras?.get("data") as Bitmap
         binding.btnAddProfile.setImageBitmap(bitmap)
-
     }
     private val cameraResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

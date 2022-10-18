@@ -1,12 +1,16 @@
 package com.example.logindatastorefix.isi
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.logindatastorefix.MainActivity
 import com.example.logindatastorefix.R
 import com.example.logindatastorefix.databinding.ActivityDetailBinding
+import com.example.logindatastorefix.model.ResponseBookmarkItem
 import com.example.logindatastorefix.viewmodel.ViewModelDataMhs
 import kotlin.properties.Delegates
 
@@ -24,6 +28,7 @@ class DetailActivity : AppCompatActivity() {
         setDetail()
 
 
+
     }
     fun setDetail(){
 
@@ -35,8 +40,6 @@ class DetailActivity : AppCompatActivity() {
             binding.detailAlamat.setText("Alamat : "+ it!!.alamat)
             var url = it.foto
             Glide.with(this).load(url).circleCrop().into(binding.imgDetail)
-
-
 
         })
     }
