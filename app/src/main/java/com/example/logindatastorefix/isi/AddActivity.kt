@@ -5,11 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.example.logindatastorefix.MainActivity
 import com.example.logindatastorefix.R
 import com.example.logindatastorefix.databinding.ActivityAddBinding
 import com.example.logindatastorefix.viewmodel.ViewModelDataMhs
+import com.example.logindatastorefix.workmanager.Worker
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class AddActivity : AppCompatActivity() {
     lateinit var binding : ActivityAddBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +35,15 @@ class AddActivity : AppCompatActivity() {
             var intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             Toast.makeText(this,"add data sukses", Toast.LENGTH_SHORT).show()
+
+            val wManager = OneTimeWorkRequestBuilder<Worker>()
+                .setInitialDelay(20, TimeUnit.SECONDS)
+                .setInputData(
+                    workDataOf(
+                    "title" to "NOTIFIKASI!!!",
+                    "message" to "DATA MAHASISWA TELAH DIBUAT")
+                ).build()
+            WorkManager.getInstance(this).enqueue(wManager)
 
         }
 

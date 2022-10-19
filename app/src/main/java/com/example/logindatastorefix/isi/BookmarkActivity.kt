@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.logindatastorefix.MainActivity
 import com.example.logindatastorefix.databinding.ActivityBookmarkBinding
 import com.example.logindatastorefix.viewmodel.ViewModelDataMhs
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class BookmarkActivity : AppCompatActivity() {
     lateinit var binding : ActivityBookmarkBinding
     lateinit var viewModel : ViewModelDataMhs

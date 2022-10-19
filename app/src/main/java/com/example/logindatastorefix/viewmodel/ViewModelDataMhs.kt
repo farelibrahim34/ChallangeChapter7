@@ -4,12 +4,16 @@ import androidx.datastore.preferences.protobuf.Api
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.logindatastorefix.model.*
+import com.example.logindatastorefix.network.APIInterface
 import com.example.logindatastorefix.network.APIMahasiswa
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class ViewModelDataMhs : ViewModel() {
+@HiltViewModel
+class ViewModelDataMhs @Inject constructor(var api : APIInterface) : ViewModel() {
     lateinit var liveDataMhs : MutableLiveData<List<ResponseDataMhsItem>?>
     lateinit var ldMhsById : MutableLiveData<ResponseDataMhsItem?>
     lateinit var postLdDataMhs : MutableLiveData<ResponseDataMhs?>
@@ -59,7 +63,7 @@ class ViewModelDataMhs : ViewModel() {
 
 
     fun callDeleteData(id : Int){
-        APIMahasiswa.instance.deleteDataMhs(id)
+        api.deleteDataMhs(id)
             .enqueue(object : Callback<ResponseDataMhsItem> {
                 override fun onResponse(
                     call: Call<ResponseDataMhsItem>,
@@ -80,7 +84,7 @@ class ViewModelDataMhs : ViewModel() {
     }
 
     fun editApiDataMhs(id: Int,nama : String,nim : String,alamat : String,foto : String,jk : String){
-        APIMahasiswa.instance.editDataMhs(id, DataMahasiswa(nama,nim,alamat,foto,jk))
+        api.editDataMhs(id, DataMahasiswa(nama,nim,alamat,foto,jk))
             .enqueue(object : Callback<ResponseDataMhsItem> {
                 override fun onResponse(
                     call: Call<ResponseDataMhsItem>,
@@ -102,7 +106,7 @@ class ViewModelDataMhs : ViewModel() {
     }
 
     fun callPostApiDataMhs(nama : String, nim : String, jk : String, alamat : String, foto : String){
-        APIMahasiswa.instance.addDataMhs(DataMahasiswa(nama,nim,jk,alamat,foto))
+        api.addDataMhs(DataMahasiswa(nama,nim,jk,alamat,foto))
             .enqueue(object  : Callback<ResponseDataMhs> {
                 override fun onResponse(
                     call: Call<ResponseDataMhs>,
@@ -122,7 +126,7 @@ class ViewModelDataMhs : ViewModel() {
             })
     }
     fun callAddBookmark(nama : String, nim : String, jk : String, alamat : String, foto : String){
-        APIMahasiswa.instance.addBookmarkDataMhs(DataMahasiswa(nama,nim,jk,alamat,foto))
+        api.addBookmarkDataMhs(DataMahasiswa(nama,nim,jk,alamat,foto))
             .enqueue(object : Callback<ResponseBookmark>{
                 override fun onResponse(
                     call: Call<ResponseBookmark>,
@@ -144,7 +148,7 @@ class ViewModelDataMhs : ViewModel() {
 
 
     fun callGetDataMhs(id : Int){
-        APIMahasiswa.instance.getDataByid(id)
+        api.getDataByid(id)
             .enqueue(object : Callback<ResponseDataMhsItem> {
                 override fun onResponse(
                     call: Call<ResponseDataMhsItem>,
@@ -164,7 +168,7 @@ class ViewModelDataMhs : ViewModel() {
             })
     }
     fun callGetBookmark(id: Int){
-        APIMahasiswa.instance.getBookmarkByid(id)
+        api.getBookmarkByid(id)
             .enqueue(object : Callback<ResponseBookmarkItem>{
                 override fun onResponse(
                     call: Call<ResponseBookmarkItem>,
@@ -185,7 +189,7 @@ class ViewModelDataMhs : ViewModel() {
     }
 
     fun callApiDataMhs(){
-        APIMahasiswa.instance.getAllDataMhs()
+        api.getAllDataMhs()
             .enqueue(object : Callback<List<ResponseDataMhsItem>> {
                 override fun onResponse(
                     call: Call<List<ResponseDataMhsItem>>,
@@ -205,7 +209,7 @@ class ViewModelDataMhs : ViewModel() {
             })
     }
     fun callBookmarkDataMhs(){
-        APIMahasiswa.instance.getBookmarkMhs()
+        api.getBookmarkMhs()
             .enqueue(object : Callback<List<ResponseBookmarkItem>>{
                 override fun onResponse(
                     call: Call<List<ResponseBookmarkItem>>,

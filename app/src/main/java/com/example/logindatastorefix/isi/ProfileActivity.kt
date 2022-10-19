@@ -19,9 +19,11 @@ import com.example.logindatastorefix.DataStoreProfile
 import com.example.logindatastorefix.MainActivity
 import com.example.logindatastorefix.databinding.ActivityProfileBinding
 import com.example.logindatastorefix.view.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ProfileActivity : AppCompatActivity() {
     lateinit var binding : ActivityProfileBinding
     lateinit var dataLogin : DataStoreLogin

@@ -11,7 +11,9 @@ import com.example.logindatastorefix.databinding.ActivityProfileBinding
 import com.example.logindatastorefix.view.BookmarkAdapter
 import com.example.logindatastorefix.view.MhsAdapter
 import com.example.logindatastorefix.viewmodel.ViewModelDataMhs
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoriteActivity : AppCompatActivity() {
     lateinit var viewModel : ViewModelDataMhs
     lateinit var binding : ActivityFavoriteBinding

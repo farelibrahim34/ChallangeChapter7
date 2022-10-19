@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -68,4 +70,10 @@ dependencies {
     //material theme
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'com.google.android.material:material:1.6.1'
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+//    workmanager
+    //    Work Manager
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
 }

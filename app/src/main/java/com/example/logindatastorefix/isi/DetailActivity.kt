@@ -12,8 +12,10 @@ import com.example.logindatastorefix.R
 import com.example.logindatastorefix.databinding.ActivityDetailBinding
 import com.example.logindatastorefix.model.ResponseBookmarkItem
 import com.example.logindatastorefix.viewmodel.ViewModelDataMhs
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
     lateinit var binding : ActivityDetailBinding
     lateinit var viewModel : ViewModelDataMhs

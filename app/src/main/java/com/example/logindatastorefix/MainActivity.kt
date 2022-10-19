@@ -20,7 +20,9 @@ import com.example.logindatastorefix.isi.FavoriteActivity
 import com.example.logindatastorefix.isi.ProfileActivity
 import com.example.logindatastorefix.view.LoginActivity
 import com.example.logindatastorefix.viewmodel.ViewModelDataMhs
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
     lateinit var dataLogin : DataStoreLogin

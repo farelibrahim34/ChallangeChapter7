@@ -9,8 +9,10 @@ import com.example.logindatastorefix.MainActivity
 import com.example.logindatastorefix.R
 import com.example.logindatastorefix.databinding.ActivityEditDataBinding
 import com.example.logindatastorefix.viewmodel.ViewModelDataMhs
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class EditDataActivity : AppCompatActivity() {
     lateinit var binding : ActivityEditDataBinding
     lateinit var viewModel : ViewModelDataMhs
