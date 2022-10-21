@@ -22,6 +22,7 @@ class ViewModelDataMhs @Inject constructor(var api : APIInterface) : ViewModel()
     lateinit var liveDataBookmark : MutableLiveData<List<ResponseBookmarkItem>>
     lateinit var postBookmark : MutableLiveData<ResponseBookmark>
     lateinit var ldBookmarkById : MutableLiveData<ResponseBookmarkItem>
+    lateinit var deleteLdBookmark : MutableLiveData<ResponseBookmarkItem>
 
     init {
         liveDataMhs = MutableLiveData()
@@ -32,6 +33,7 @@ class ViewModelDataMhs @Inject constructor(var api : APIInterface) : ViewModel()
         liveDataBookmark = MutableLiveData()
         postBookmark = MutableLiveData()
         ldBookmarkById = MutableLiveData()
+        deleteLdBookmark = MutableLiveData()
 
     }
     //    null
@@ -59,6 +61,10 @@ class ViewModelDataMhs @Inject constructor(var api : APIInterface) : ViewModel()
     fun getBookmarkById(id : Int): MutableLiveData<ResponseBookmarkItem>{
         return ldBookmarkById
     }
+    fun getDelBookmark(): MutableLiveData<ResponseBookmarkItem>{
+        return deleteLdBookmark
+    }
+
 
 
 
@@ -78,6 +84,26 @@ class ViewModelDataMhs @Inject constructor(var api : APIInterface) : ViewModel()
 
                 override fun onFailure(call: Call<ResponseDataMhsItem>, t: Throwable) {
                     deleteLdDataMhs.postValue(null)
+                }
+
+            })
+    }
+    fun callDeleteBookmark(id: Int){
+        api.deleteBookmark(id)
+            .enqueue(object : Callback<ResponseBookmarkItem>{
+                override fun onResponse(
+                    call: Call<ResponseBookmarkItem>,
+                    response: Response<ResponseBookmarkItem>
+                ) {
+                    if (response.isSuccessful){
+                        deleteLdBookmark.postValue(response.body())
+                    }else{
+                        deleteLdBookmark.postValue(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBookmarkItem>, t: Throwable) {
+                    deleteLdBookmark.postValue(null)
                 }
 
             })

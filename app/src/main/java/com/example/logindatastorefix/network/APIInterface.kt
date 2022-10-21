@@ -28,4 +28,7 @@ interface APIInterface {
 
     @GET("bookmark")
     fun getBookmarkByid(@Path("id") id : Int): Call<ResponseBookmarkItem>
+
+    @DELETE("bookmark/{id}")
+    fun deleteBookmark(@Path("id")id : Int): Call<ResponseBookmarkItem>
 }

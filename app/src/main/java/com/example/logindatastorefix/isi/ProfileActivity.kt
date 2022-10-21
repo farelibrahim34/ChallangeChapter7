@@ -2,9 +2,11 @@ package com.example.logindatastorefix.isi
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +24,9 @@ import com.example.logindatastorefix.view.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 @AndroidEntryPoint
 class ProfileActivity : AppCompatActivity() {
@@ -29,6 +34,7 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var dataLogin : DataStoreLogin
     lateinit var dataProfile : DataStoreProfile
     private val REQUEST_CODE_PERMISSION = 100
+    private var imageUri: Uri? = Uri.EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +55,8 @@ class ProfileActivity : AppCompatActivity() {
         dataProfile.userAlamat.asLiveData().observe(this,{
             binding.inputAlamat.setText(it.toString())
         })
+        var image = BitmapFactory.decodeFile(this.applicationContext.filesDir.path + File.separator +"dataFoto"+ File.separator +"fotoProfile.png")
+        binding.btnAddProfile.setImageBitmap(image)
 
 
 
@@ -64,6 +72,11 @@ class ProfileActivity : AppCompatActivity() {
                 dataProfile.saveDataProfile(updateNama,updateTgl,updateAlamat)
                 startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
             }
+
+            val resolver = this.applicationContext.contentResolver
+            val picture = BitmapFactory.decodeStream(
+                resolver.openInputStream(Uri.parse(imageUri.toString())))
+            writeBitmapToFile(this,picture)
         }
 
         binding.btnLogout.setOnClickListener {
@@ -78,6 +91,31 @@ class ProfileActivity : AppCompatActivity() {
             checkingPermissions()
         }
     }
+    fun writeBitmapToFile(applicationContext: Context, bitmap: Bitmap): Uri {
+        val name = "fotoProfile.png"
+        val outputDir = File(applicationContext.filesDir, "dataFoto")
+        if (!outputDir.exists()) {
+            outputDir.mkdirs() // should succeed
+        }
+        val outputFile = File(outputDir, name)
+        var out: FileOutputStream? = null
+        try {
+            out = FileOutputStream(outputFile)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0 /* ignored for PNG */, out)
+        } finally {
+            out?.let {
+                try {
+                    it.close()
+                } catch (ignore: IOException) {
+                }
+
+            }
+        }
+        return Uri.fromFile(outputFile)
+    }
+
+
+
     private fun checkingPermissions() {
         if (isGranted(
                 this,
@@ -154,6 +192,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     private val galleryResult =
         registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
+            imageUri = result
             binding.btnAddProfile.setImageURI(result)
         }
 }
