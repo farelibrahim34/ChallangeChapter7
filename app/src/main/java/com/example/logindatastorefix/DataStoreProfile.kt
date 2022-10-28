@@ -45,7 +45,4 @@ class DataStoreProfile(private val context: Context) {
             it.clear()
         }
     }
-
-
-
 }

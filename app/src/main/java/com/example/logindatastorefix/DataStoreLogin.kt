@@ -12,9 +12,6 @@ import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "datauser")
 class DataStoreLogin(private val context: Context) {
-
-
-
     val USERNAME = stringPreferencesKey("username")
     val EMAIL = stringPreferencesKey("email")
     val PW = stringPreferencesKey("password")
@@ -45,8 +42,6 @@ class DataStoreLogin(private val context: Context) {
         .map {
             it[PW] ?: ""
         }
-
-
 
 }
 

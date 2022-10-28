@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         dataMhs()
+//        throw RuntimeException("Test Crash")
 
 
 
