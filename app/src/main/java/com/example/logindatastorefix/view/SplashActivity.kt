@@ -18,7 +18,9 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         dataLogin = DataStoreLogin(this)
+//        throw RuntimeException("Test Crash")
         dataLogin.userName.asLiveData().observe(this,{
             usernama = it.toString()
         })

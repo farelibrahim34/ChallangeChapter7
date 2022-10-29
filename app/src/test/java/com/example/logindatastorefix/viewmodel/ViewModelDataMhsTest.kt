@@ -1,5 +1,8 @@
 package com.example.logindatastorefix.viewmodel
 
+import com.example.logindatastorefix.model.DataMahasiswa
+import com.example.logindatastorefix.model.ResponseBookmarkItem
+import com.example.logindatastorefix.model.ResponseDataMhs
 import com.example.logindatastorefix.model.ResponseDataMhsItem
 import com.example.logindatastorefix.network.APIInterface
 import io.mockk.every
@@ -37,7 +40,6 @@ class ViewModelDataMhsTest{
             runBlocking { servis.getAllDataMhs() }
         }
         assertEquals(result, respAllDataMhs)
-
     }
     @Test
     fun testGetDataMhs(){
@@ -55,4 +57,39 @@ class ViewModelDataMhsTest{
         }
         Assert.assertEquals(result, respAllDataMhs)
     }
+
+    @Test
+    fun testGetBookmark(){
+        val respBookmark = mockk <Call<List<ResponseBookmarkItem>>>()
+        every {
+            servis.getBookmarkMhs()
+
+        }returns respBookmark
+
+        //        System Under Test (WHEN)
+        val result = servis.getBookmarkMhs()
+
+        verify {
+            servis.getBookmarkMhs()
+        }
+        Assert.assertEquals(result, respBookmark)
+    }
+
+    @Test
+    fun testBookmark(){
+        val respBookmark = mockk <Call<List<ResponseBookmarkItem>>>()
+        every {
+            servis.getBookmarkMhs()
+
+        }returns respBookmark
+
+        //        System Under Test (WHEN)
+        val result = servis.getBookmarkMhs()
+
+        verify {
+            runBlocking { servis.getBookmarkMhs() }
+        }
+        Assert.assertEquals(result, respBookmark)
+    }
+
 }
