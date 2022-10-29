@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".isi.AddActivity">
+
+    <TextView
+        style="@style/DescriptionStyle"
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Tambah Data Mahasiswa"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/tambahNama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Masukkan Nama"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/tambahNim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Masukkan Nim"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/tambahNama"
+        app:layout_constraintStart_toStartOf="@+id/tambahNama"
+        app:layout_constraintTop_toBottomOf="@+id/tambahNama" />
+
+    <EditText
+        android:id="@+id/tmbhAlamat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Masukkan Alamat"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/tambahNim"
+        app:layout_constraintStart_toStartOf="@+id/tambahNim"
+        app:layout_constraintTop_toBottomOf="@+id/tambahNim" />
+
+    <EditText
+        android:id="@+id/tmbhFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Link Foto"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/tmbhAlamat"
+        app:layout_constraintStart_toStartOf="@+id/tmbhAlamat"
+        app:layout_constraintTop_toBottomOf="@+id/tmbhAlamat" />
+
+    <EditText
+        android:id="@+id/tmbhJk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Jenis Kelamin"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/tmbhFoto"
+        app:layout_constraintStart_toStartOf="@+id/tmbhFoto"
+        app:layout_constraintTop_toBottomOf="@+id/tmbhFoto" />
+
+    <Button
+        android:id="@+id/btnTambahData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tambah Data"
+        app:layout_constraintEnd_toEndOf="@+id/tmbhJk"
+        app:layout_constraintStart_toStartOf="@+id/tmbhJk"
+        app:layout_constraintTop_toBottomOf="@+id/tmbhJk" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

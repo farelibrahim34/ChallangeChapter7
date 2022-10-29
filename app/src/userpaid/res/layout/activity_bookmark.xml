@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".isi.BookmarkActivity">
+    <TextView
+        style="@style/DescriptionStyle"
+        android:id="@+id/textView51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bookmark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/bmNama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Masukkan Nama"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+    <EditText
+        android:id="@+id/bmNim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Masukkan Nim"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/bmNama"
+        app:layout_constraintStart_toStartOf="@+id/bmNama"
+        app:layout_constraintTop_toBottomOf="@+id/bmNama" />
+
+    <EditText
+        android:id="@+id/bmAlamat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Masukkan Alamat"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/bmNim"
+        app:layout_constraintStart_toStartOf="@+id/bmNim"
+        app:layout_constraintTop_toBottomOf="@+id/bmNim" />
+
+    <EditText
+        android:id="@+id/bmFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Link Foto"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/bmAlamat"
+        app:layout_constraintStart_toStartOf="@+id/bmAlamat"
+        app:layout_constraintTop_toBottomOf="@+id/bmAlamat" />
+
+    <EditText
+        android:id="@+id/bmJk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Jenis Kelamin"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/bmFoto"
+        app:layout_constraintStart_toStartOf="@+id/bmFoto"
+        app:layout_constraintTop_toBottomOf="@+id/bmFoto" />
+
+    <Button
+        android:id="@+id/btnOke"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="yes"
+        app:layout_constraintEnd_toEndOf="@+id/bmJk"
+        app:layout_constraintTop_toBottomOf="@+id/bmJk" />
+
+    <Button
+        android:id="@+id/btnNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="NO"
+        app:layout_constraintStart_toStartOf="@+id/bmJk"
+        app:layout_constraintTop_toBottomOf="@+id/bmJk" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

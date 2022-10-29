@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:15578628997:android:54e741732eef66e3507aec",
         "android_client_info": {
-          "package_name": "com.example.logindatastorefix"
+          "package_name": "com.example.logindatastorefix.userpaid"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "15578628997-vjn6ccbmj521ef3ol202nkip92l9arhf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.logindatastorefix",
+            "package_name": "com.example.logindatastorefix.userpaid",
             "certificate_hash": "8c2d4c243a0c333874a2cac98b0090fce55f3655"
           }
         },
