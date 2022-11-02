@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "15578628997-0hrr0lrrjosd4vj0uon9drhqd5bf00kl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.logindatastorefix",
+            "certificate_hash": "9d5dd1f7573b00a94cbe1f914e108fed0418dfc4"
+          }
+        },
+        {
+          "client_id": "15578628997-5e7l02lqvkkbbg29f18p5i6gsk7g8lbs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.logindatastorefix",
+            "certificate_hash": "8c2d4c243a0c333874a2cac98b0090fce55f3655"
+          }
+        },
+        {
           "client_id": "15578628997-iprv086fs26eb05ehf42eooiamk9feld.apps.googleusercontent.com",
           "client_type": 3
         }
