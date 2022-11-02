@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -19,8 +22,18 @@ import androidx.lifecycle.asLiveData
 import com.example.logindatastorefix.DataStoreLogin
 import com.example.logindatastorefix.DataStoreProfile
 import com.example.logindatastorefix.MainActivity
+import com.example.logindatastorefix.R
 import com.example.logindatastorefix.databinding.ActivityProfileBinding
 import com.example.logindatastorefix.view.LoginActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,10 +49,45 @@ class ProfileActivity : AppCompatActivity() {
     private val REQUEST_CODE_PERMISSION = 100
     private var imageUri: Uri? = Uri.EMPTY
 
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+    val Req_Code:Int=123
+    private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FirebaseApp.initializeApp(this)
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
+        firebaseAuth= FirebaseAuth.getInstance()
+
+        firebaseAuth= FirebaseAuth.getInstance()
+        binding.akunGoogle.setOnClickListener{ view: View? ->
+            Toast.makeText(this,"Logging In", Toast.LENGTH_SHORT).show()
+            signInGoogle()
+
+
+        }
+        binding.logoutGoogle.setOnClickListener {
+            mGoogleSignInClient.signOut().addOnCompleteListener {
+                val intent= Intent(this, LoginActivity::class.java)
+                Toast.makeText(this,"Logging Out", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                binding.logoutGoogle.setText("")
+                binding.akunGoogle.setText("sambungkan ke akun google?")
+                finish()
+            }
+        }
+
+
+
+
+
         dataLogin = DataStoreLogin(this)
         dataProfile = DataStoreProfile(this)
 
@@ -91,6 +139,62 @@ class ProfileActivity : AppCompatActivity() {
             checkingPermissions()
         }
     }
+    private  fun signInGoogle(){
+
+
+        val signInIntent: Intent =mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent,Req_Code)
+
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==Req_Code){
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleResult(task)
+        }
+    }
+    private fun handleResult(completedTask: Task<GoogleSignInAccount>){
+        try {
+            val account: GoogleSignInAccount? =completedTask.getResult(ApiException::class.java)
+            if (account != null) {
+                UpdateUI(account)
+            }
+        } catch (e: ApiException){
+            Toast.makeText(this,e.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun UpdateUI(account: GoogleSignInAccount){
+        val credential= GoogleAuthProvider.getCredential(account.idToken,null)
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+            startActivity(Intent(this, ProfileActivity::class.java))
+            Log.e("sigingoogle",signInGoogle().toString())
+
+
+        }
+    }
+    override fun onStart() {
+        super.onStart()
+        if(GoogleSignIn.getLastSignedInAccount(this)!=null){
+            startActivity(Intent(this, ProfileActivity::class.java))
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(GoogleSignIn.getLastSignedInAccount(this)!=null){
+            startActivity(Intent(this, ProfileActivity::class.java))
+            binding.akunGoogle.text = "terhubung ke akun google"
+            binding.logoutGoogle.text = "logout"
+        }
+    }
+
+
+
+
+
     fun writeBitmapToFile(applicationContext: Context, bitmap: Bitmap): Uri {
         val name = "fotoProfile.png"
         val outputDir = File(applicationContext.filesDir, "dataFoto")
